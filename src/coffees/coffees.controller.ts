@@ -1,11 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
 
-    @Get('flavors')
-    findAll() {
-        return "This action returns all coffees"
+    @Get()
+    findAll(@Query() paginationQuery) {
+        const { limit, offset } = paginationQuery;
+        return `This action returns all coffees. Limit ${limit} offset ${offset}`
     }
 
     @Get(':id')
@@ -24,8 +25,7 @@ export class CoffeesController {
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string)
-    {
+    remove(@Param('id') id: string) {
         return `This action removes #${id} coffee`
     }
 }
