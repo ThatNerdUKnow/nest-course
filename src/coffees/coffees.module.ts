@@ -6,10 +6,12 @@ import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { Event } from '../events/entities/event.entity'
 
+class MockCoffesService { }
+
 @Module({
     imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
     controllers: [CoffeesController],
-    providers: [{ provide: CoffeesService, useClass: CoffeesService }],
+    providers: [{ provide: CoffeesService, useValue: new MockCoffesService() }],
     exports: [CoffeesService]
 })
 export class CoffeesModule { }
