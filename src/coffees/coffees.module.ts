@@ -30,7 +30,15 @@ export class CoffeeBrandsFactory {
                 ? DevelopmentConfigService
                 : ProductionConfigService
         }
-        , { provide: COFFEE_BRANDS, useFactory: (brandsFactory: CoffeeBrandsFactory) => brandsFactory.create(), inject: [CoffeeBrandsFactory] }],
+        , {
+            provide: COFFEE_BRANDS,
+            useFactory: async (brandsFactory: CoffeeBrandsFactory) => {
+                const brands = await Promise.resolve(brandsFactory.create())
+                console.log('[!] Async factory')
+                return brands
+            },
+            inject: [CoffeeBrandsFactory]
+        }],
     exports: [CoffeesService]
 })
 export class CoffeesModule { }
