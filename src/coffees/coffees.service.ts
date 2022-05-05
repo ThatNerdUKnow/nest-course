@@ -10,12 +10,14 @@ import { Event } from '../events/entities/event.entity'
 import { COFFEE_BRANDS } from './coffees.constants';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express'
+import { ConfigService } from '@nestjs/config';
 
 
 @Injectable({ scope: Scope.REQUEST })
 export class CoffeesService {
 
     constructor(
+        private readonly configService: ConfigService,
         @InjectRepository(Coffee)
         private readonly coffeeRepository: Repository<Coffee>,
         @InjectRepository(Flavor)
@@ -27,6 +29,8 @@ export class CoffeesService {
     ) {
         console.log("CoffeesService Instantiated")
         console.log(coffeeBrands)
+        const databaseHost = this.configService.get<string>('DATABASE_HOST');
+        console.log(databaseHost);
     }
 
     async findAll(paginationQuery: PaginationQueryDto) {
