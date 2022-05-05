@@ -8,9 +8,11 @@ import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { Event } from '../events/entities/event.entity'
 import { COFFEE_BRANDS } from './coffees.constants';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express'
 
 
-@Injectable({scope: Scope.REQUEST})
+@Injectable({ scope: Scope.REQUEST })
 export class CoffeesService {
 
     constructor(
@@ -21,6 +23,7 @@ export class CoffeesService {
         private readonly connection: Connection,
         @Inject(COFFEE_BRANDS)
         private readonly coffeeBrands: string[],
+        @Inject(REQUEST) private readonly request: Request
     ) {
         console.log("CoffeesService Instantiated")
         console.log(coffeeBrands)
