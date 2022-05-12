@@ -10,10 +10,11 @@ import { Event } from '../events/entities/event.entity'
 import { COFFEE_BRANDS } from './coffees.constants';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express'
-import { ConfigService } from '@nestjs/config';
+import { ConfigService, ConfigType } from '@nestjs/config';
+import coffeesConfig from './config/coffees.config';
 
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class CoffeesService {
 
     constructor(
@@ -25,15 +26,13 @@ export class CoffeesService {
         private readonly connection: Connection,
         @Inject(COFFEE_BRANDS)
         private readonly coffeeBrands: string[],
-        @Inject(REQUEST) private readonly request: Request
+        @Inject(REQUEST) private readonly request: Request,
+        @Inject(coffeesConfig.KEY)
+        private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>
     ) {
         console.log("CoffeesService Instantiated")
         console.log(coffeeBrands)
-        const databaseHost = this.configService.get(
-            'database.host',
-            'localhost'
-        );
-        console.log(databaseHost);
+        console.log(coffeesConfiguration.foo);
     }
 
     async findAll(paginationQuery: PaginationQueryDto) {
