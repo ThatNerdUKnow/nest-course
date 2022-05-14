@@ -4,6 +4,6 @@ import { CoffeeRatingService } from './coffee-rating.service';
 
 @Module({
   imports: [CoffeesModule],
-  providers: [CoffeeRatingService]
+  providers: [CoffeeRatingService],
 })
 export class CoffeeRatingModule {}

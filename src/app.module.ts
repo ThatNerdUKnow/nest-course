@@ -21,20 +21,21 @@ import { CommonModule } from './common/common.module';
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
         autoLoadEntities: true,
-        synchronize: true
-      })
+        synchronize: true,
+      }),
     }),
     ConfigModule.forRoot({
       load: [appConfig],
       validationSchema: Joi.object({
         DATABASE_HOST: Joi.required(),
-        DATABASE_PORT: Joi.number().default(5432)
-      })
+        DATABASE_PORT: Joi.number().default(5432),
+      }),
     }),
     CoffeesModule,
     CoffeeRatingModule,
-    CommonModule],
+    CommonModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
